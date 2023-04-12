@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Декор растений</title>
+    <title>Магазин декоративных растений</title>
     <style>
         body {
             background-color: #f7f7f7;
@@ -50,11 +50,35 @@
 </head>
 <body>
     <div id='main'>
-        <h1>Декор растений</h1>
-        <img src="image1.jpg" alt="Декоративные растения">
-        <p>Мы предлагаем широкий выбор декоративных растений для вашего дома или офиса. Наши растения не только украсят ваш интерьер, но и очистят воздух от вредных веществ.</p>
-        <button id="button">Купить</button>
-     </div>
+        <h1>Декоративные растения</h1>
+        <img src="images/plant.jpg" alt="Фото растения">
+        <p>Купите у нас красивые и качественные декоративные растения для вашего дома или офиса.</p>
+        <button id="buy-button">Купить</button>
+    </div>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script>
+        // Обработчик нажатия на кнопку "Купить"
+        document.getElementById("buy-button").addEventListener("click", function() {
+            // Запрос на отправку сообщения в Telegram
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "https://api.telegram.org/bot<token>/sendMessage", true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    // Сообщение успешно отправлено
+                    alert("Спасибо за покупку! Мы свяжемся с вами в ближайшее время.");
+                } else {
+                    // Произошла ошибка при отправке сообщения
+                    alert("Произошла ошибка при отправке заказа. Попробуйте позже.");
+                }
+            };
+            var message = {
+                chat_id: <chat_id>, // ID чата с ботом
+                text: "Я хочу купить декоративное растение!" // Текст сообщения
+            };
+            xhr.send(JSON.stringify(message));
+        });
+    </script>
 </body>
 </html>
+``
